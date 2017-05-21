@@ -132,27 +132,14 @@ public class SchemaExtractor {
 	}
 
 	private void extractRefProperty(RefProperty prop, Swagger swagger, JsonSchema schema) {
-		Model model = resolveModel(prop.get$ref(), swagger);
+		Model model = swagger.getDefinitions().get(prop.get$ref());
 		extractModel(model, swagger, schema);
-	}
-
-	private Model resolveModel(String $ref, Swagger swagger) {
-		String[] resource = $ref.split("#/definitions/");
-		Model model;
-		if (resource.length > 2) {
-			Swagger innerSwagger = getSwagger(resource[1]);
-			String[] split = $ref.split(".yaml");
-			model = resolveModel(split[1], innerSwagger);
-		} else {
-			model = swagger.getDefinitions().get(resource[1]);
-		}
-		return model;
 	}
 
 	private void extractModel(Model model, Swagger swagger, JsonSchema schema) {
 		if (model instanceof RefModel) {
 			RefModel refModel = (RefModel) model;
-			model = refModel.get$ref() != null ? resolveModel(refModel.get$ref(), swagger) : model;
+			model = refModel.get$ref() != null ? swagger.getDefinitions().get(refModel.get$ref()) : model;
 			extractModel((AbstractModel) model, swagger, schema);
 		} else if (model instanceof ModelImpl) {
 			extractModel((AbstractModel) model, swagger, schema);

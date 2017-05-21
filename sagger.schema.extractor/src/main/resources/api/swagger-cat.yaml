@@ -162,16 +162,7 @@ paths:
 
 
 definitions:
-  Tag:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      name:
-        type: "string"
-    xml:
-      name: "Tag"
+
   Pet:
     type: "object"
     required:
@@ -182,7 +173,7 @@ definitions:
         type: "integer"
         format: "int64"
       category:
-        $ref: "swagger-common.yaml#/definitions/Category"
+        $ref: "../api/swagger-common.yaml#/definitions/Category"
       name:
         type: "string"
         example: "doggie"
@@ -199,7 +190,7 @@ definitions:
           name: "tag"
           wrapped: true
         items:
-          $ref: "#/definitions/Tag"
+          $ref: "../swagger-common-tag.yaml#/definitions/Tag"
       status:
         type: "string"
         description: "pet status in the store"

@@ -13,7 +13,8 @@ import io.swagger.util.Json;
 public class ParseSwaggerMain {
 	public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
 
-		Map<String, JsonSchema> schema = new SchemaExtractor().extractSchema("./api/swagger-cat.yaml");
+		Map<String, JsonSchema> schema = new SchemaExtractor().extractSchema(
+				"/Users/erwin/git/swagger-schema-extractor/sagger.schema.extractor/src/main/resources/api/swagger-cat.yaml");
 		System.err.println(Json.pretty(schema));
 
 		Map<String, JsonSchema> schema2 = new SchemaExtractor().extractSchema("./api/swagger-pet.yaml");
