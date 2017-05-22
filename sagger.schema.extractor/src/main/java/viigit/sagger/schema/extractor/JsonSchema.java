@@ -7,8 +7,14 @@ public class JsonSchema {
 	public JsonSchema() {
 	}
 
+	public String in;
+	public Boolean required;
 	public String type;
 	public String title;
+	public Integer minLength;
+	public Integer maxLength;
+	public Double minimum;
+	public Double maximum;
 	public JsonSchema items;
 
 	public Map<String, JsonSchema> properties;

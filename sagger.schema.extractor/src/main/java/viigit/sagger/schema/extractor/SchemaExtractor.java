@@ -18,11 +18,14 @@ import io.swagger.models.Path;
 import io.swagger.models.RefModel;
 import io.swagger.models.Response;
 import io.swagger.models.Swagger;
+import io.swagger.models.parameters.AbstractSerializableParameter;
 import io.swagger.models.parameters.BodyParameter;
 import io.swagger.models.parameters.Parameter;
+import io.swagger.models.properties.AbstractNumericProperty;
 import io.swagger.models.properties.ArrayProperty;
 import io.swagger.models.properties.Property;
 import io.swagger.models.properties.RefProperty;
+import io.swagger.models.properties.StringProperty;
 import io.swagger.parser.SwaggerParser;
 
 public class SchemaExtractor {
@@ -62,12 +65,23 @@ public class SchemaExtractor {
 
 				Model model = bodyParam.getSchema();
 				extractModel(model, swagger, propSchema);
+			} else {
+				AbstractSerializableParameter<?> abstractParam = (AbstractSerializableParameter<?>) param;
+
+				schema.addProperty(abstractParam.getName(), propSchema);
+				propSchema.title = abstractParam.getName();
+				propSchema.type = abstractParam.getType();
+				propSchema.minimum = abstractParam.getMinimum();
+				propSchema.maximum = abstractParam.getMaximum();
+				propSchema.minLength = abstractParam.getMinLength();
+				propSchema.maxLength = abstractParam.getMaxLength();
+				propSchema.in = abstractParam.getIn();
+
 			}
 			schema.title = param.getName();
 
-			path.put(entry.getKey() + "." + httpOperation.getKey().name() + ".request.param", propSchema);
-
 		}
+		path.put(entry.getKey() + "." + httpOperation.getKey().name() + ".request.param", schema);
 	}
 
 	private void parseResponses(Map<String, JsonSchema> path, Swagger swagger, Map.Entry<String, Path> entry,
@@ -125,6 +139,19 @@ public class SchemaExtractor {
 	private void extractCommonPropertyAttributes(Property prop, Swagger swagger, JsonSchema schema) {
 		schema.title = prop.getTitle();
 		schema.type = prop.getType();
+
+		if (prop instanceof AbstractNumericProperty) {
+			AbstractNumericProperty abstractNumProp = (AbstractNumericProperty) prop;
+			schema.minimum = abstractNumProp.getMinimum();
+			schema.maximum = abstractNumProp.getMaximum();
+		} else if (prop instanceof StringProperty) {
+			StringProperty stringProp = (StringProperty) prop;
+			schema.minLength = stringProp.getMinLength();
+			schema.maxLength = stringProp.getMaxLength();
+		}
+
+		// schema.type = prop.getReadOnly();
+
 	}
 
 	private void extractProperty(ArrayProperty prop, Swagger swagger, JsonSchema schema) {
@@ -132,14 +159,14 @@ public class SchemaExtractor {
 	}
 
 	private void extractRefProperty(RefProperty prop, Swagger swagger, JsonSchema schema) {
-		Model model = swagger.getDefinitions().get(prop.get$ref());
+		Model model = getModelByRef(prop.get$ref(), swagger, schema);
 		extractModel(model, swagger, schema);
 	}
 
 	private void extractModel(Model model, Swagger swagger, JsonSchema schema) {
 		if (model instanceof RefModel) {
 			RefModel refModel = (RefModel) model;
-			model = refModel.get$ref() != null ? swagger.getDefinitions().get(refModel.get$ref()) : model;
+			model = refModel.get$ref() != null ? getModelByRef(refModel.get$ref(), swagger, schema) : model;
 			extractModel((AbstractModel) model, swagger, schema);
 		} else if (model instanceof ModelImpl) {
 			extractModel((AbstractModel) model, swagger, schema);
@@ -162,9 +189,13 @@ public class SchemaExtractor {
 
 	}
 
-	private void extractModel(AbstractModel model, Swagger swagger, JsonSchema schema) {
-
+	private Model getModelByRef(String ref, Swagger swagger, JsonSchema schema) {
 		schema.type = "object";
+		String[] split = ref.split("#/definitions/");
+		return swagger.getDefinitions().get(split[1]);
+	}
+
+	private void extractModel(AbstractModel model, Swagger swagger, JsonSchema schema) {
 
 		Map<String, Property> properties = model.getProperties();
 

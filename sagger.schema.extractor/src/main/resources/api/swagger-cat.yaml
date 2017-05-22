@@ -74,7 +74,7 @@ paths:
         405:
           description: "Validation exception"
 
-  /pet/findByStatus:
+  /pet/findByStatus/{statusId}:
     get:
       tags:
       - "pet"
@@ -85,6 +85,13 @@ paths:
       - "application/xml"
       - "application/json"
       parameters:
+      - name: "statusId"
+        in: "path"
+        description: "Status values that need to be considered for filter"
+        required: true
+        type: "string"
+        minLength: 2
+        maxLength: 5
       - name: "status"
         in: "query"
         description: "Status values that need to be considered for filter"
@@ -176,6 +183,8 @@ definitions:
         $ref: "../api/swagger-common.yaml#/definitions/Category"
       name:
         type: "string"
+        minLength: 5
+        maxLength: 55
         example: "doggie"
       photoUrls:
         type: "array"
