@@ -16,20 +16,16 @@ import io.swagger.util.Json;
 public class ParseSwaggerMain {
 	public static void main(String[] args) throws URISyntaxException, IOException {
 
-		String path = new File("").getAbsolutePath();
-		Map<String, JsonSchema> schema = new SchemaExtractor()
-				.extractSchema(path + "/src/main/resources/api/swagger-cat.yaml");
-
-		Files.write(Paths.get(path + "/gen/cat-schema.js"), ("var schemas = " + Json.pretty(schema)).getBytes());
-
-		System.err.println(Json.pretty(schema));
-
-		Map<String, JsonSchema> schema2 = new SchemaExtractor()
-				.extractSchema(path + "/src/main/resources/api/swagger-pet.yaml");
-
-		Files.write(Paths.get(path + "/gen/pet-schema.js"), ("var schemas = " + Json.pretty(schema2)).getBytes());
-
-		System.err.println(Json.pretty(schema2));
+		parseSwagger("/src/main/resources/api/swagger-cat.yaml");
+		parseSwagger("/src/main/resources/api/swagger-pet.yaml");
 	}
 
+	private static void parseSwagger(String swagger) throws IOException {
+		String path = new File("").getAbsolutePath();
+		Map<String, JsonSchema> schema = new SchemaExtractor().extractSchema(path + swagger);
+
+		Files.write(Paths.get(path + swagger + ".schema.js"), ("var schemas = " + Json.pretty(schema)).getBytes());
+
+		System.err.println(Json.pretty(schema));
+	}
 }
