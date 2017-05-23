@@ -61,8 +61,8 @@ public class SchemaExtractor {
 
 			if (param instanceof BodyParameter) {
 				BodyParameter bodyParam = (BodyParameter) param;
-				propSchema.title = bodyParam.getName();
-
+				schema.addProperty(bodyParam.getName(), propSchema);
+				schema.type = "object";
 				Model model = bodyParam.getSchema();
 				extractModel(model, swagger, propSchema);
 			} else {
