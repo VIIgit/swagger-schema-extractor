@@ -7,7 +7,6 @@ public class JsonSchema {
 	public JsonSchema() {
 	}
 
-	public String in;
 	public Boolean required;
 	public String type;
 	public String title;

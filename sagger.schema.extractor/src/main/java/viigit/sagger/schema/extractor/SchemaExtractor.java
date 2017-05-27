@@ -54,34 +54,45 @@ public class SchemaExtractor {
 
 	private void parseRequestParameter(Map<String, JsonSchema> path, Swagger swagger, Map.Entry<String, Path> entry,
 			Map.Entry<HttpMethod, Operation> httpOperation) {
-		JsonSchema schema = new JsonSchema();
+		Map<String, JsonSchema> paramTypeMap = new HashMap<>();
+
 		List<Parameter> requestParams = httpOperation.getValue().getParameters();
 		for (Parameter param : requestParams) {
 			JsonSchema propSchema = new JsonSchema();
 
 			if (param instanceof BodyParameter) {
+				JsonSchema schema = new JsonSchema();
 				BodyParameter bodyParam = (BodyParameter) param;
 				schema.addProperty(bodyParam.getName(), propSchema);
 				schema.type = "object";
 				Model model = bodyParam.getSchema();
 				extractModel(model, swagger, propSchema);
+				path.put(entry.getKey() + "." + httpOperation.getKey().name() + ".request.body", schema);
 			} else {
 				AbstractSerializableParameter<?> abstractParam = (AbstractSerializableParameter<?>) param;
 
-				schema.addProperty(abstractParam.getName(), propSchema);
 				propSchema.title = abstractParam.getName();
 				propSchema.type = abstractParam.getType();
 				propSchema.minimum = abstractParam.getMinimum();
 				propSchema.maximum = abstractParam.getMaximum();
 				propSchema.minLength = abstractParam.getMinLength();
 				propSchema.maxLength = abstractParam.getMaxLength();
-				propSchema.in = abstractParam.getIn();
 
+				JsonSchema jsonSchema = paramTypeMap.get(abstractParam.getIn());
+				if (jsonSchema == null) {
+					jsonSchema = new JsonSchema();
+					jsonSchema.type = "object";
+					paramTypeMap.put(abstractParam.getIn(), jsonSchema);
+				}
+				jsonSchema.addProperty(abstractParam.getName(), propSchema);
 			}
-			schema.title = param.getName();
 
 		}
-		path.put(entry.getKey() + "." + httpOperation.getKey().name() + ".request.param", schema);
+
+		for (Entry<String, JsonSchema> parameter : paramTypeMap.entrySet()) {
+			path.put(entry.getKey() + "." + httpOperation.getKey().name() + ".request." + parameter.getKey(),
+					parameter.getValue());
+		}
 	}
 
 	private void parseResponses(Map<String, JsonSchema> path, Swagger swagger, Map.Entry<String, Path> entry,
