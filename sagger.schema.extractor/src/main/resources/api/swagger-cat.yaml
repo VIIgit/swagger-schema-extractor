@@ -32,7 +32,6 @@ paths:
       operationId: "addPet"
       consumes:
       - "application/json"
-      - "application/xml"
       produces:
       - "application/xml"
       - "application/json"
@@ -199,7 +198,14 @@ definitions:
           name: "tag"
           wrapped: true
         items:
-          $ref: "../swagger-common-tag.yaml#/definitions/Tag"
+          $ref: "../swagger-common-tag.yaml#/definitions/TagTag"
+      tagsOnly:
+        type: "array"
+        xml:
+          name: "tag"
+          wrapped: true
+        items:
+          $ref: "../swagger-common-tag.yaml#/definitions/Tag"          
       status:
         type: "string"
         description: "pet status in the store"
@@ -218,5 +224,15 @@ definitions:
       type:
         type: "string"
       message:
+        type: "string"        
+  Tag:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
         type: "string"
-        
+    xml:
+      name: "TagNix"
+      

@@ -1,7 +1,6 @@
-var schemas = {
-  "/pet.POST.request.param" : {
+{
+  "/pet.POST.request.body" : {
     "type" : "object",
-    "title" : "body",
     "properties" : {
       "body" : {
         "type" : "object",
@@ -16,7 +15,8 @@ var schemas = {
             "type" : "string"
           },
           "id" : {
-            "type" : "integer"
+            "type" : "integer",
+            "format" : "int64"
           },
           "category" : {
             "type" : "object",
@@ -25,7 +25,8 @@ var schemas = {
                 "type" : "string"
               },
               "id" : {
-                "type" : "integer"
+                "type" : "integer",
+                "format" : "int64"
               }
             }
           },
@@ -38,7 +39,8 @@ var schemas = {
                   "type" : "string"
                 },
                 "id" : {
-                  "type" : "integer"
+                  "type" : "integer",
+                  "format" : "int64"
                 }
               }
             }
@@ -51,9 +53,8 @@ var schemas = {
     }
   },
   "/pet.POST.response.405" : { },
-  "/pet.PUT.request.param" : {
+  "/pet.PUT.request.body" : {
     "type" : "object",
-    "title" : "body",
     "properties" : {
       "body" : {
         "type" : "object",
@@ -68,7 +69,8 @@ var schemas = {
             "type" : "string"
           },
           "id" : {
-            "type" : "integer"
+            "type" : "integer",
+            "format" : "int64"
           },
           "category" : {
             "type" : "object",
@@ -77,7 +79,8 @@ var schemas = {
                 "type" : "string"
               },
               "id" : {
-                "type" : "integer"
+                "type" : "integer",
+                "format" : "int64"
               }
             }
           },
@@ -90,7 +93,8 @@ var schemas = {
                   "type" : "string"
                 },
                 "id" : {
-                  "type" : "integer"
+                  "type" : "integer",
+                  "format" : "int64"
                 }
               }
             }
@@ -105,11 +109,10 @@ var schemas = {
   "/pet.PUT.response.400" : { },
   "/pet.PUT.response.404" : { },
   "/pet.PUT.response.405" : { },
-  "/pet/findByStatus.GET.request.param" : {
-    "title" : "status",
+  "/pet/findByStatus.GET.request.query" : {
+    "type" : "object",
     "properties" : {
       "status" : {
-        "in" : "query",
         "type" : "array",
         "title" : "status"
       }
@@ -130,7 +133,8 @@ var schemas = {
           "type" : "string"
         },
         "id" : {
-          "type" : "integer"
+          "type" : "integer",
+          "format" : "int64"
         },
         "category" : {
           "type" : "object",
@@ -139,7 +143,8 @@ var schemas = {
               "type" : "string"
             },
             "id" : {
-              "type" : "integer"
+              "type" : "integer",
+              "format" : "int64"
             }
           }
         },
@@ -152,7 +157,8 @@ var schemas = {
                 "type" : "string"
               },
               "id" : {
-                "type" : "integer"
+                "type" : "integer",
+                "format" : "int64"
               }
             }
           }
@@ -164,11 +170,10 @@ var schemas = {
     }
   },
   "/pet/findByStatus.GET.response.400" : { },
-  "/pet/findByTags.GET.request.param" : {
-    "title" : "tags",
+  "/pet/findByTags.GET.request.query" : {
+    "type" : "object",
     "properties" : {
       "tags" : {
-        "in" : "query",
         "type" : "array",
         "title" : "tags"
       }
@@ -189,7 +194,8 @@ var schemas = {
           "type" : "string"
         },
         "id" : {
-          "type" : "integer"
+          "type" : "integer",
+          "format" : "int64"
         },
         "category" : {
           "type" : "object",
@@ -198,7 +204,8 @@ var schemas = {
               "type" : "string"
             },
             "id" : {
-              "type" : "integer"
+              "type" : "integer",
+              "format" : "int64"
             }
           }
         },
@@ -211,7 +218,8 @@ var schemas = {
                 "type" : "string"
               },
               "id" : {
-                "type" : "integer"
+                "type" : "integer",
+                "format" : "int64"
               }
             }
           }
@@ -223,28 +231,30 @@ var schemas = {
     }
   },
   "/pet/findByTags.GET.response.400" : { },
-  "/pet/{petId}.DELETE.request.param" : {
-    "title" : "petId",
+  "/pet/{petId}.DELETE.request.header" : {
+    "type" : "object",
     "properties" : {
-      "petId" : {
-        "in" : "path",
-        "type" : "integer",
-        "title" : "petId"
-      },
       "api_key" : {
-        "in" : "header",
         "type" : "string",
         "title" : "api_key"
       }
     }
   },
-  "/pet/{petId}.DELETE.response.400" : { },
-  "/pet/{petId}.DELETE.response.404" : { },
-  "/pet/{petId}.GET.request.param" : {
-    "title" : "petId",
+  "/pet/{petId}.DELETE.request.path" : {
+    "type" : "object",
     "properties" : {
       "petId" : {
-        "in" : "path",
+        "type" : "integer",
+        "title" : "petId"
+      }
+    }
+  },
+  "/pet/{petId}.DELETE.response.400" : { },
+  "/pet/{petId}.DELETE.response.404" : { },
+  "/pet/{petId}.GET.request.path" : {
+    "type" : "object",
+    "properties" : {
+      "petId" : {
         "type" : "integer",
         "title" : "petId"
       }
@@ -263,7 +273,8 @@ var schemas = {
         "type" : "string"
       },
       "id" : {
-        "type" : "integer"
+        "type" : "integer",
+        "format" : "int64"
       },
       "category" : {
         "type" : "object",
@@ -272,7 +283,8 @@ var schemas = {
             "type" : "string"
           },
           "id" : {
-            "type" : "integer"
+            "type" : "integer",
+            "format" : "int64"
           }
         }
       },
@@ -285,7 +297,8 @@ var schemas = {
               "type" : "string"
             },
             "id" : {
-              "type" : "integer"
+              "type" : "integer",
+              "format" : "int64"
             }
           }
         }
@@ -297,44 +310,48 @@ var schemas = {
   },
   "/pet/{petId}.GET.response.400" : { },
   "/pet/{petId}.GET.response.404" : { },
-  "/pet/{petId}.POST.request.param" : {
-    "title" : "status",
+  "/pet/{petId}.POST.request.formData" : {
+    "type" : "object",
     "properties" : {
-      "petId" : {
-        "in" : "path",
-        "type" : "integer",
-        "title" : "petId"
-      },
       "name" : {
-        "in" : "formData",
         "type" : "string",
         "title" : "name"
       },
       "status" : {
-        "in" : "formData",
         "type" : "string",
         "title" : "status"
       }
     }
   },
-  "/pet/{petId}.POST.response.405" : { },
-  "/pet/{petId}/uploadImage.POST.request.param" : {
-    "title" : "file",
+  "/pet/{petId}.POST.request.path" : {
+    "type" : "object",
     "properties" : {
       "petId" : {
-        "in" : "path",
         "type" : "integer",
         "title" : "petId"
-      },
+      }
+    }
+  },
+  "/pet/{petId}.POST.response.405" : { },
+  "/pet/{petId}/uploadImage.POST.request.formData" : {
+    "type" : "object",
+    "properties" : {
       "file" : {
-        "in" : "formData",
         "type" : "file",
         "title" : "file"
       },
       "additionalMetadata" : {
-        "in" : "formData",
         "type" : "string",
         "title" : "additionalMetadata"
+      }
+    }
+  },
+  "/pet/{petId}/uploadImage.POST.request.path" : {
+    "type" : "object",
+    "properties" : {
+      "petId" : {
+        "type" : "integer",
+        "title" : "petId"
       }
     }
   },
@@ -342,7 +359,8 @@ var schemas = {
     "type" : "object",
     "properties" : {
       "code" : {
-        "type" : "integer"
+        "type" : "integer",
+        "format" : "int32"
       },
       "type" : {
         "type" : "string"
@@ -352,28 +370,35 @@ var schemas = {
       }
     }
   },
-  "/store/inventory.GET.request.param" : { },
   "/store/inventory.GET.response.200" : {
-    "type" : "object"
-  },
-  "/store/order.POST.request.param" : {
     "type" : "object",
-    "title" : "body",
+    "additionalProperties" : {
+      "type" : "integer",
+      "format" : "int32"
+    }
+  },
+  "/store/order.POST.request.body" : {
+    "type" : "object",
     "properties" : {
       "body" : {
         "type" : "object",
         "properties" : {
           "petId" : {
-            "type" : "integer"
+            "type" : "integer",
+            "format" : "int64"
           },
           "quantity" : {
-            "type" : "integer"
+            "type" : "integer",
+            "format" : "int32"
           },
           "id" : {
-            "type" : "integer"
+            "type" : "integer",
+            "format" : "int64"
           },
           "shipDate" : {
-            "type" : "string"
+            "type" : "string",
+            "format" : "date-time",
+            "pattern" : "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}"
           },
           "complete" : {
             "type" : "boolean"
@@ -389,16 +414,21 @@ var schemas = {
     "type" : "object",
     "properties" : {
       "petId" : {
-        "type" : "integer"
+        "type" : "integer",
+        "format" : "int64"
       },
       "quantity" : {
-        "type" : "integer"
+        "type" : "integer",
+        "format" : "int32"
       },
       "id" : {
-        "type" : "integer"
+        "type" : "integer",
+        "format" : "int64"
       },
       "shipDate" : {
-        "type" : "string"
+        "type" : "string",
+        "format" : "date-time",
+        "pattern" : "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}"
       },
       "complete" : {
         "type" : "boolean"
@@ -409,11 +439,10 @@ var schemas = {
     }
   },
   "/store/order.POST.response.400" : { },
-  "/store/order/{orderId}.DELETE.request.param" : {
-    "title" : "orderId",
+  "/store/order/{orderId}.DELETE.request.path" : {
+    "type" : "object",
     "properties" : {
       "orderId" : {
-        "in" : "path",
         "type" : "integer",
         "title" : "orderId",
         "minimum" : 1.0
@@ -422,11 +451,10 @@ var schemas = {
   },
   "/store/order/{orderId}.DELETE.response.400" : { },
   "/store/order/{orderId}.DELETE.response.404" : { },
-  "/store/order/{orderId}.GET.request.param" : {
-    "title" : "orderId",
+  "/store/order/{orderId}.GET.request.path" : {
+    "type" : "object",
     "properties" : {
       "orderId" : {
-        "in" : "path",
         "type" : "integer",
         "title" : "orderId",
         "minimum" : 1.0,
@@ -438,16 +466,21 @@ var schemas = {
     "type" : "object",
     "properties" : {
       "petId" : {
-        "type" : "integer"
+        "type" : "integer",
+        "format" : "int64"
       },
       "quantity" : {
-        "type" : "integer"
+        "type" : "integer",
+        "format" : "int32"
       },
       "id" : {
-        "type" : "integer"
+        "type" : "integer",
+        "format" : "int64"
       },
       "shipDate" : {
-        "type" : "string"
+        "type" : "string",
+        "format" : "date-time",
+        "pattern" : "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}"
       },
       "complete" : {
         "type" : "boolean"
@@ -459,9 +492,8 @@ var schemas = {
   },
   "/store/order/{orderId}.GET.response.400" : { },
   "/store/order/{orderId}.GET.response.404" : { },
-  "/user.POST.request.param" : {
+  "/user.POST.request.body" : {
     "type" : "object",
-    "title" : "body",
     "properties" : {
       "body" : {
         "type" : "object",
@@ -476,13 +508,15 @@ var schemas = {
             "type" : "string"
           },
           "userStatus" : {
-            "type" : "integer"
+            "type" : "integer",
+            "format" : "int32"
           },
           "phone" : {
             "type" : "string"
           },
           "id" : {
-            "type" : "integer"
+            "type" : "integer",
+            "format" : "int64"
           },
           "email" : {
             "type" : "string"
@@ -495,9 +529,8 @@ var schemas = {
     }
   },
   "/user.POST.response.default" : { },
-  "/user/createWithArray.POST.request.param" : {
+  "/user/createWithArray.POST.request.body" : {
     "type" : "object",
-    "title" : "body",
     "properties" : {
       "body" : {
         "type" : "object",
@@ -512,13 +545,15 @@ var schemas = {
             "type" : "string"
           },
           "userStatus" : {
-            "type" : "integer"
+            "type" : "integer",
+            "format" : "int32"
           },
           "phone" : {
             "type" : "string"
           },
           "id" : {
-            "type" : "integer"
+            "type" : "integer",
+            "format" : "int64"
           },
           "email" : {
             "type" : "string"
@@ -531,9 +566,8 @@ var schemas = {
     }
   },
   "/user/createWithArray.POST.response.default" : { },
-  "/user/createWithList.POST.request.param" : {
+  "/user/createWithList.POST.request.body" : {
     "type" : "object",
-    "title" : "body",
     "properties" : {
       "body" : {
         "type" : "object",
@@ -548,13 +582,15 @@ var schemas = {
             "type" : "string"
           },
           "userStatus" : {
-            "type" : "integer"
+            "type" : "integer",
+            "format" : "int32"
           },
           "phone" : {
             "type" : "string"
           },
           "id" : {
-            "type" : "integer"
+            "type" : "integer",
+            "format" : "int64"
           },
           "email" : {
             "type" : "string"
@@ -567,16 +603,14 @@ var schemas = {
     }
   },
   "/user/createWithList.POST.response.default" : { },
-  "/user/login.GET.request.param" : {
-    "title" : "password",
+  "/user/login.GET.request.query" : {
+    "type" : "object",
     "properties" : {
       "password" : {
-        "in" : "query",
         "type" : "string",
         "title" : "password"
       },
       "username" : {
-        "in" : "query",
         "type" : "string",
         "title" : "username"
       }
@@ -586,13 +620,11 @@ var schemas = {
     "type" : "string"
   },
   "/user/login.GET.response.400" : { },
-  "/user/logout.GET.request.param" : { },
   "/user/logout.GET.response.default" : { },
-  "/user/{username}.DELETE.request.param" : {
-    "title" : "username",
+  "/user/{username}.DELETE.request.path" : {
+    "type" : "object",
     "properties" : {
       "username" : {
-        "in" : "path",
         "type" : "string",
         "title" : "username"
       }
@@ -600,11 +632,10 @@ var schemas = {
   },
   "/user/{username}.DELETE.response.400" : { },
   "/user/{username}.DELETE.response.404" : { },
-  "/user/{username}.GET.request.param" : {
-    "title" : "username",
+  "/user/{username}.GET.request.path" : {
+    "type" : "object",
     "properties" : {
       "username" : {
-        "in" : "path",
         "type" : "string",
         "title" : "username"
       }
@@ -623,13 +654,15 @@ var schemas = {
         "type" : "string"
       },
       "userStatus" : {
-        "type" : "integer"
+        "type" : "integer",
+        "format" : "int32"
       },
       "phone" : {
         "type" : "string"
       },
       "id" : {
-        "type" : "integer"
+        "type" : "integer",
+        "format" : "int64"
       },
       "email" : {
         "type" : "string"
@@ -641,9 +674,8 @@ var schemas = {
   },
   "/user/{username}.GET.response.400" : { },
   "/user/{username}.GET.response.404" : { },
-  "/user/{username}.PUT.request.param" : {
+  "/user/{username}.PUT.request.body" : {
     "type" : "object",
-    "title" : "body",
     "properties" : {
       "body" : {
         "type" : "object",
@@ -658,13 +690,15 @@ var schemas = {
             "type" : "string"
           },
           "userStatus" : {
-            "type" : "integer"
+            "type" : "integer",
+            "format" : "int32"
           },
           "phone" : {
             "type" : "string"
           },
           "id" : {
-            "type" : "integer"
+            "type" : "integer",
+            "format" : "int64"
           },
           "email" : {
             "type" : "string"
@@ -673,9 +707,13 @@ var schemas = {
             "type" : "string"
           }
         }
-      },
+      }
+    }
+  },
+  "/user/{username}.PUT.request.path" : {
+    "type" : "object",
+    "properties" : {
       "username" : {
-        "in" : "path",
         "type" : "string",
         "title" : "username"
       }

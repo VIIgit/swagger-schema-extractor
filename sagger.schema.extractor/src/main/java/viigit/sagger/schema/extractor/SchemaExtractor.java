@@ -1,6 +1,5 @@
 package viigit.sagger.schema.extractor;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,22 +22,18 @@ import io.swagger.models.parameters.BodyParameter;
 import io.swagger.models.parameters.Parameter;
 import io.swagger.models.properties.AbstractNumericProperty;
 import io.swagger.models.properties.ArrayProperty;
+import io.swagger.models.properties.BooleanProperty;
+import io.swagger.models.properties.DateTimeProperty;
+import io.swagger.models.properties.MapProperty;
 import io.swagger.models.properties.Property;
 import io.swagger.models.properties.RefProperty;
 import io.swagger.models.properties.StringProperty;
-import io.swagger.parser.SwaggerParser;
 
 public class SchemaExtractor {
 
-	private File swaggerFile;
-	private Map<String, Swagger> linkedSwaggers = new HashMap<>();
+	public Map<String, JsonSchema> extractSchema(Swagger swagger) {
 
-	public Map<String, JsonSchema> extractSchema(String file) {
-
-		swaggerFile = null;
 		Map<String, JsonSchema> path = new TreeMap<>();
-
-		Swagger swagger = getSwagger(file);
 
 		Map<String, Path> paths = swagger.getPaths();
 
@@ -86,7 +81,6 @@ public class SchemaExtractor {
 				}
 				jsonSchema.addProperty(abstractParam.getName(), propSchema);
 			}
-
 		}
 
 		for (Entry<String, JsonSchema> parameter : paramTypeMap.entrySet()) {
@@ -101,55 +95,24 @@ public class SchemaExtractor {
 		for (Map.Entry<String, Response> response : responses.entrySet()) {
 
 			JsonSchema schema = new JsonSchema();
+			String key = entry.getKey() + "." + httpOperation.getKey().name() + ".response." + response.getKey();
+			System.err.println(key);
 
-			path.put(entry.getKey() + "." + httpOperation.getKey().name() + ".response." + response.getKey(), schema);
+			path.put(key, schema);
 
 			if (response.getValue().getSchema() != null) {
 				extractProperty(response.getValue().getSchema(), swagger, schema);
 			}
-
 		}
-	}
-
-	private Swagger getSwagger(String file) {
-		Swagger swagger;
-		if (swaggerFile == null) {
-			swaggerFile = new File(file);
-			swagger = new SwaggerParser().read(swaggerFile.getPath());
-		} else {
-
-			swagger = linkedSwaggers.get(file);
-			if (swagger == null) {
-				swagger = new SwaggerParser().read(swaggerFile.getParent() + "/" + file);
-				if (swagger == null) {
-					throw new IllegalArgumentException("File not found: " + swaggerFile.getPath() + "/" + file);
-				}
-				linkedSwaggers.put(file, swagger);
-			}
-		}
-		return swagger;
 	}
 
 	private void extractProperty(Property prop, Swagger swagger, JsonSchema schema) {
 
-		extractCommonPropertyAttributes(prop, swagger, schema);
-
-		if ("array".equals(prop.getType())) {
-			JsonSchema arraySchema = new JsonSchema();
-			extractProperty((ArrayProperty) prop, swagger, arraySchema);
-			schema.type = "array";
-			schema.items = arraySchema;
-
-		} else if ("ref".equals(prop.getType())) {
-			extractRefProperty((RefProperty) prop, swagger, schema);
-			schema.type = "object";
-		}
-
-	}
-
-	private void extractCommonPropertyAttributes(Property prop, Swagger swagger, JsonSchema schema) {
 		schema.title = prop.getTitle();
 		schema.type = prop.getType();
+		schema.format = prop.getFormat();
+		schema.readOnly = prop.getReadOnly();
+		schema.required = prop.getRequired();
 
 		if (prop instanceof AbstractNumericProperty) {
 			AbstractNumericProperty abstractNumProp = (AbstractNumericProperty) prop;
@@ -159,10 +122,36 @@ public class SchemaExtractor {
 			StringProperty stringProp = (StringProperty) prop;
 			schema.minLength = stringProp.getMinLength();
 			schema.maxLength = stringProp.getMaxLength();
+		} else if (prop instanceof BooleanProperty) {
+			BooleanProperty booleanProp = (BooleanProperty) prop;
+		} else if (prop instanceof DateTimeProperty) {
+			DateTimeProperty dateProp = (DateTimeProperty) prop;
+			schema.format = dateProp.getFormat();
+			// dateProp.getPattern() is undefined for date
+			if ("date-time-utc".equals(schema.format)) {
+				schema.pattern = "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(Z|\\+\\d{2}:\\d{2})";
+			} else if ("date-time".equals(schema.format)) {
+				schema.pattern = "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}";
+			} else if ("date".equals(schema.format)) {
+				schema.pattern = "\\d{4}-\\d{2}-\\d{2}";
+			}
+		} else if (prop instanceof MapProperty) {
+			MapProperty mapProperty = (MapProperty) prop;
+			Property props = mapProperty.getAdditionalProperties();
+			schema.additionalProperties = new JsonSchema();
+			extractProperty(props, swagger, schema.additionalProperties);
+		} else if ("array".equals(prop.getType())) {
+			JsonSchema arraySchema = new JsonSchema();
+			extractProperty((ArrayProperty) prop, swagger, arraySchema);
+			schema.type = "array";
+			schema.items = arraySchema;
+		} else if ("ref".equals(prop.getType())) {
+			extractRefProperty((RefProperty) prop, swagger, schema);
+			schema.type = "object";
+		} else {
+			System.err.println(prop.toString());
+			throw new RuntimeException("Property Type not supported:" + prop.getName() + " type:" + prop.getType());
 		}
-
-		// schema.type = prop.getReadOnly();
-
 	}
 
 	private void extractProperty(ArrayProperty prop, Swagger swagger, JsonSchema schema) {
@@ -197,7 +186,6 @@ public class SchemaExtractor {
 		} else {
 			throw new RuntimeException("Model unsupported: " + model.getClass());
 		}
-
 	}
 
 	private Model getModelByRef(String ref, Swagger swagger, JsonSchema schema) {
@@ -207,18 +195,13 @@ public class SchemaExtractor {
 	}
 
 	private void extractModel(AbstractModel model, Swagger swagger, JsonSchema schema) {
-
 		Map<String, Property> properties = model.getProperties();
-
 		if (properties != null) {
-
 			for (Map.Entry<String, Property> entry : properties.entrySet()) {
 				JsonSchema paramSchema = new JsonSchema();
 				schema.addProperty(entry.getKey(), paramSchema);
 				extractProperty(entry.getValue(), swagger, paramSchema);
 			}
 		}
-
 	}
-
 }

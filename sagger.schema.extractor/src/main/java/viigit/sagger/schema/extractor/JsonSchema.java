@@ -1,5 +1,6 @@
 package viigit.sagger.schema.extractor;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,13 +9,17 @@ public class JsonSchema {
 	}
 
 	public Boolean required;
+	public Boolean readOnly;
 	public String type;
+	public String format;
+	public String pattern;
 	public String title;
 	public Integer minLength;
 	public Integer maxLength;
-	public Double minimum;
-	public Double maximum;
+	public BigDecimal minimum;
+	public BigDecimal maximum;
 	public JsonSchema items;
+	public JsonSchema additionalProperties;
 
 	public Map<String, JsonSchema> properties;
 

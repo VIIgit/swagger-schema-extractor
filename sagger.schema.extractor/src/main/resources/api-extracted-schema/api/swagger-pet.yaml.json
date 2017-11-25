@@ -1,0 +1,859 @@
+{
+  "/pet.POST.request.body" : {
+    "type" : "object",
+    "properties" : {
+      "body" : {
+        "type" : "object",
+        "properties" : {
+          "photoUrls" : {
+            "required" : true,
+            "type" : "array",
+            "items" : {
+              "required" : false,
+              "type" : "string"
+            }
+          },
+          "name" : {
+            "required" : true,
+            "type" : "string"
+          },
+          "id" : {
+            "required" : false,
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "category" : {
+            "required" : false,
+            "type" : "object",
+            "properties" : {
+              "name" : {
+                "required" : false,
+                "type" : "string"
+              },
+              "id" : {
+                "required" : false,
+                "type" : "integer",
+                "format" : "int64"
+              }
+            }
+          },
+          "tags" : {
+            "required" : false,
+            "type" : "array",
+            "items" : {
+              "required" : false,
+              "type" : "object",
+              "properties" : {
+                "name" : {
+                  "required" : false,
+                  "type" : "string"
+                },
+                "id" : {
+                  "required" : false,
+                  "type" : "integer",
+                  "format" : "int64"
+                }
+              }
+            }
+          },
+          "status" : {
+            "required" : false,
+            "type" : "string"
+          }
+        }
+      }
+    }
+  },
+  "/pet.POST.response.405" : { },
+  "/pet.PUT.request.body" : {
+    "type" : "object",
+    "properties" : {
+      "body" : {
+        "type" : "object",
+        "properties" : {
+          "photoUrls" : {
+            "required" : true,
+            "type" : "array",
+            "items" : {
+              "required" : false,
+              "type" : "string"
+            }
+          },
+          "name" : {
+            "required" : true,
+            "type" : "string"
+          },
+          "id" : {
+            "required" : false,
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "category" : {
+            "required" : false,
+            "type" : "object",
+            "properties" : {
+              "name" : {
+                "required" : false,
+                "type" : "string"
+              },
+              "id" : {
+                "required" : false,
+                "type" : "integer",
+                "format" : "int64"
+              }
+            }
+          },
+          "tags" : {
+            "required" : false,
+            "type" : "array",
+            "items" : {
+              "required" : false,
+              "type" : "object",
+              "properties" : {
+                "name" : {
+                  "required" : false,
+                  "type" : "string"
+                },
+                "id" : {
+                  "required" : false,
+                  "type" : "integer",
+                  "format" : "int64"
+                }
+              }
+            }
+          },
+          "status" : {
+            "required" : false,
+            "type" : "string"
+          }
+        }
+      }
+    }
+  },
+  "/pet.PUT.response.400" : { },
+  "/pet.PUT.response.404" : { },
+  "/pet.PUT.response.405" : { },
+  "/pet/findByStatus.GET.request.query" : {
+    "type" : "object",
+    "properties" : {
+      "status" : {
+        "type" : "array",
+        "title" : "status"
+      }
+    }
+  },
+  "/pet/findByStatus.GET.response.200" : {
+    "required" : false,
+    "type" : "array",
+    "items" : {
+      "required" : false,
+      "type" : "object",
+      "properties" : {
+        "photoUrls" : {
+          "required" : true,
+          "type" : "array",
+          "items" : {
+            "required" : false,
+            "type" : "string"
+          }
+        },
+        "name" : {
+          "required" : true,
+          "type" : "string"
+        },
+        "id" : {
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "category" : {
+          "required" : false,
+          "type" : "object",
+          "properties" : {
+            "name" : {
+              "required" : false,
+              "type" : "string"
+            },
+            "id" : {
+              "required" : false,
+              "type" : "integer",
+              "format" : "int64"
+            }
+          }
+        },
+        "tags" : {
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "required" : false,
+            "type" : "object",
+            "properties" : {
+              "name" : {
+                "required" : false,
+                "type" : "string"
+              },
+              "id" : {
+                "required" : false,
+                "type" : "integer",
+                "format" : "int64"
+              }
+            }
+          }
+        },
+        "status" : {
+          "required" : false,
+          "type" : "string"
+        }
+      }
+    }
+  },
+  "/pet/findByStatus.GET.response.400" : { },
+  "/pet/findByTags.GET.request.query" : {
+    "type" : "object",
+    "properties" : {
+      "tags" : {
+        "type" : "array",
+        "title" : "tags"
+      }
+    }
+  },
+  "/pet/findByTags.GET.response.200" : {
+    "required" : false,
+    "type" : "array",
+    "items" : {
+      "required" : false,
+      "type" : "object",
+      "properties" : {
+        "photoUrls" : {
+          "required" : true,
+          "type" : "array",
+          "items" : {
+            "required" : false,
+            "type" : "string"
+          }
+        },
+        "name" : {
+          "required" : true,
+          "type" : "string"
+        },
+        "id" : {
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "category" : {
+          "required" : false,
+          "type" : "object",
+          "properties" : {
+            "name" : {
+              "required" : false,
+              "type" : "string"
+            },
+            "id" : {
+              "required" : false,
+              "type" : "integer",
+              "format" : "int64"
+            }
+          }
+        },
+        "tags" : {
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "required" : false,
+            "type" : "object",
+            "properties" : {
+              "name" : {
+                "required" : false,
+                "type" : "string"
+              },
+              "id" : {
+                "required" : false,
+                "type" : "integer",
+                "format" : "int64"
+              }
+            }
+          }
+        },
+        "status" : {
+          "required" : false,
+          "type" : "string"
+        }
+      }
+    }
+  },
+  "/pet/findByTags.GET.response.400" : { },
+  "/pet/{petId}.DELETE.request.header" : {
+    "type" : "object",
+    "properties" : {
+      "api_key" : {
+        "type" : "string",
+        "title" : "api_key"
+      }
+    }
+  },
+  "/pet/{petId}.DELETE.request.path" : {
+    "type" : "object",
+    "properties" : {
+      "petId" : {
+        "type" : "integer",
+        "title" : "petId"
+      }
+    }
+  },
+  "/pet/{petId}.DELETE.response.400" : { },
+  "/pet/{petId}.DELETE.response.404" : { },
+  "/pet/{petId}.GET.request.path" : {
+    "type" : "object",
+    "properties" : {
+      "petId" : {
+        "type" : "integer",
+        "title" : "petId"
+      }
+    }
+  },
+  "/pet/{petId}.GET.response.200" : {
+    "required" : false,
+    "type" : "object",
+    "properties" : {
+      "photoUrls" : {
+        "required" : true,
+        "type" : "array",
+        "items" : {
+          "required" : false,
+          "type" : "string"
+        }
+      },
+      "name" : {
+        "required" : true,
+        "type" : "string"
+      },
+      "id" : {
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64"
+      },
+      "category" : {
+        "required" : false,
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "id" : {
+            "required" : false,
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "tags" : {
+        "required" : false,
+        "type" : "array",
+        "items" : {
+          "required" : false,
+          "type" : "object",
+          "properties" : {
+            "name" : {
+              "required" : false,
+              "type" : "string"
+            },
+            "id" : {
+              "required" : false,
+              "type" : "integer",
+              "format" : "int64"
+            }
+          }
+        }
+      },
+      "status" : {
+        "required" : false,
+        "type" : "string"
+      }
+    }
+  },
+  "/pet/{petId}.GET.response.400" : { },
+  "/pet/{petId}.GET.response.404" : { },
+  "/pet/{petId}.POST.request.formData" : {
+    "type" : "object",
+    "properties" : {
+      "name" : {
+        "type" : "string",
+        "title" : "name"
+      },
+      "status" : {
+        "type" : "string",
+        "title" : "status"
+      }
+    }
+  },
+  "/pet/{petId}.POST.request.path" : {
+    "type" : "object",
+    "properties" : {
+      "petId" : {
+        "type" : "integer",
+        "title" : "petId"
+      }
+    }
+  },
+  "/pet/{petId}.POST.response.405" : { },
+  "/pet/{petId}/uploadImage.POST.request.formData" : {
+    "type" : "object",
+    "properties" : {
+      "file" : {
+        "type" : "file",
+        "title" : "file"
+      },
+      "additionalMetadata" : {
+        "type" : "string",
+        "title" : "additionalMetadata"
+      }
+    }
+  },
+  "/pet/{petId}/uploadImage.POST.request.path" : {
+    "type" : "object",
+    "properties" : {
+      "petId" : {
+        "type" : "integer",
+        "title" : "petId"
+      }
+    }
+  },
+  "/pet/{petId}/uploadImage.POST.response.200" : {
+    "required" : false,
+    "type" : "object",
+    "properties" : {
+      "code" : {
+        "required" : false,
+        "type" : "integer",
+        "format" : "int32"
+      },
+      "type" : {
+        "required" : false,
+        "type" : "string"
+      },
+      "message" : {
+        "required" : false,
+        "type" : "string"
+      }
+    }
+  },
+  "/store/inventory.GET.response.200" : {
+    "required" : false,
+    "type" : "object",
+    "additionalProperties" : {
+      "required" : false,
+      "type" : "integer",
+      "format" : "int32"
+    }
+  },
+  "/store/order.POST.request.body" : {
+    "type" : "object",
+    "properties" : {
+      "body" : {
+        "type" : "object",
+        "properties" : {
+          "petId" : {
+            "required" : false,
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "quantity" : {
+            "required" : false,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "id" : {
+            "required" : false,
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "shipDate" : {
+            "required" : false,
+            "type" : "string",
+            "format" : "date-time",
+            "pattern" : "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}"
+          },
+          "complete" : {
+            "required" : false,
+            "type" : "boolean"
+          },
+          "status" : {
+            "required" : false,
+            "type" : "string"
+          }
+        }
+      }
+    }
+  },
+  "/store/order.POST.response.200" : {
+    "required" : false,
+    "type" : "object",
+    "properties" : {
+      "petId" : {
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64"
+      },
+      "quantity" : {
+        "required" : false,
+        "type" : "integer",
+        "format" : "int32"
+      },
+      "id" : {
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64"
+      },
+      "shipDate" : {
+        "required" : false,
+        "type" : "string",
+        "format" : "date-time",
+        "pattern" : "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}"
+      },
+      "complete" : {
+        "required" : false,
+        "type" : "boolean"
+      },
+      "status" : {
+        "required" : false,
+        "type" : "string"
+      }
+    }
+  },
+  "/store/order.POST.response.400" : { },
+  "/store/order/{orderId}.DELETE.request.path" : {
+    "type" : "object",
+    "properties" : {
+      "orderId" : {
+        "type" : "integer",
+        "title" : "orderId",
+        "minimum" : 1.0
+      }
+    }
+  },
+  "/store/order/{orderId}.DELETE.response.400" : { },
+  "/store/order/{orderId}.DELETE.response.404" : { },
+  "/store/order/{orderId}.GET.request.path" : {
+    "type" : "object",
+    "properties" : {
+      "orderId" : {
+        "type" : "integer",
+        "title" : "orderId",
+        "minimum" : 1.0,
+        "maximum" : 10.0
+      }
+    }
+  },
+  "/store/order/{orderId}.GET.response.200" : {
+    "required" : false,
+    "type" : "object",
+    "properties" : {
+      "petId" : {
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64"
+      },
+      "quantity" : {
+        "required" : false,
+        "type" : "integer",
+        "format" : "int32"
+      },
+      "id" : {
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64"
+      },
+      "shipDate" : {
+        "required" : false,
+        "type" : "string",
+        "format" : "date-time",
+        "pattern" : "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}"
+      },
+      "complete" : {
+        "required" : false,
+        "type" : "boolean"
+      },
+      "status" : {
+        "required" : false,
+        "type" : "string"
+      }
+    }
+  },
+  "/store/order/{orderId}.GET.response.400" : { },
+  "/store/order/{orderId}.GET.response.404" : { },
+  "/user.POST.request.body" : {
+    "type" : "object",
+    "properties" : {
+      "body" : {
+        "type" : "object",
+        "properties" : {
+          "firstName" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "lastName" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "password" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "userStatus" : {
+            "required" : false,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "phone" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "id" : {
+            "required" : false,
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "email" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "username" : {
+            "required" : false,
+            "type" : "string"
+          }
+        }
+      }
+    }
+  },
+  "/user.POST.response.default" : { },
+  "/user/createWithArray.POST.request.body" : {
+    "type" : "object",
+    "properties" : {
+      "body" : {
+        "required" : false,
+        "type" : "object",
+        "properties" : {
+          "firstName" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "lastName" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "password" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "userStatus" : {
+            "required" : false,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "phone" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "id" : {
+            "required" : false,
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "email" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "username" : {
+            "required" : false,
+            "type" : "string"
+          }
+        }
+      }
+    }
+  },
+  "/user/createWithArray.POST.response.default" : { },
+  "/user/createWithList.POST.request.body" : {
+    "type" : "object",
+    "properties" : {
+      "body" : {
+        "required" : false,
+        "type" : "object",
+        "properties" : {
+          "firstName" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "lastName" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "password" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "userStatus" : {
+            "required" : false,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "phone" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "id" : {
+            "required" : false,
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "email" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "username" : {
+            "required" : false,
+            "type" : "string"
+          }
+        }
+      }
+    }
+  },
+  "/user/createWithList.POST.response.default" : { },
+  "/user/login.GET.request.query" : {
+    "type" : "object",
+    "properties" : {
+      "password" : {
+        "type" : "string",
+        "title" : "password"
+      },
+      "username" : {
+        "type" : "string",
+        "title" : "username"
+      }
+    }
+  },
+  "/user/login.GET.response.200" : {
+    "required" : false,
+    "type" : "string"
+  },
+  "/user/login.GET.response.400" : { },
+  "/user/logout.GET.response.default" : { },
+  "/user/{username}.DELETE.request.path" : {
+    "type" : "object",
+    "properties" : {
+      "username" : {
+        "type" : "string",
+        "title" : "username"
+      }
+    }
+  },
+  "/user/{username}.DELETE.response.400" : { },
+  "/user/{username}.DELETE.response.404" : { },
+  "/user/{username}.GET.request.path" : {
+    "type" : "object",
+    "properties" : {
+      "username" : {
+        "type" : "string",
+        "title" : "username"
+      }
+    }
+  },
+  "/user/{username}.GET.response.200" : {
+    "required" : false,
+    "type" : "object",
+    "properties" : {
+      "firstName" : {
+        "required" : false,
+        "type" : "string"
+      },
+      "lastName" : {
+        "required" : false,
+        "type" : "string"
+      },
+      "password" : {
+        "required" : false,
+        "type" : "string"
+      },
+      "userStatus" : {
+        "required" : false,
+        "type" : "integer",
+        "format" : "int32"
+      },
+      "phone" : {
+        "required" : false,
+        "type" : "string"
+      },
+      "id" : {
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64"
+      },
+      "email" : {
+        "required" : false,
+        "type" : "string"
+      },
+      "username" : {
+        "required" : false,
+        "type" : "string"
+      }
+    }
+  },
+  "/user/{username}.GET.response.400" : { },
+  "/user/{username}.GET.response.404" : { },
+  "/user/{username}.PUT.request.body" : {
+    "type" : "object",
+    "properties" : {
+      "body" : {
+        "type" : "object",
+        "properties" : {
+          "firstName" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "lastName" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "password" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "userStatus" : {
+            "required" : false,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "phone" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "id" : {
+            "required" : false,
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "email" : {
+            "required" : false,
+            "type" : "string"
+          },
+          "username" : {
+            "required" : false,
+            "type" : "string"
+          }
+        }
+      }
+    }
+  },
+  "/user/{username}.PUT.request.path" : {
+    "type" : "object",
+    "properties" : {
+      "username" : {
+        "type" : "string",
+        "title" : "username"
+      }
+    }
+  },
+  "/user/{username}.PUT.response.400" : { },
+  "/user/{username}.PUT.response.404" : { }
+}
