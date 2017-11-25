@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>viigit</groupId>
-	<artifactId>sagger.schema.extractor</artifactId>
+	<artifactId>swagger.schema.extractor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>sagger.schema.extractor</name>
+	<name>swagger.schema.extractor</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
