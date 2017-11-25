@@ -1,4 +1,4 @@
-package viigit.sagger.schema.extractor;
+package viigit.swagger.schema.extractor;
 
 import java.io.File;
 import java.io.IOException;
