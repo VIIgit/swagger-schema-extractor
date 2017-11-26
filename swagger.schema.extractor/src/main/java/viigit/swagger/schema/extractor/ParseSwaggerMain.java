@@ -11,7 +11,6 @@ import java.util.Map;
 
 import io.swagger.models.Swagger;
 import io.swagger.parser.SwaggerParser;
-import io.swagger.parser.SwaggerResolver;
 import io.swagger.util.Json;
 
 /**
@@ -40,7 +39,7 @@ public class ParseSwaggerMain {
 	private void parseSwagger(String swaggerFileName, String sourceFolder, String outputFolder) throws IOException {
 		File swaggerFile = new File(sourceFolder + swaggerFileName);
 		System.out.println("-------------------- " + swaggerFile.getAbsolutePath());
-		Swagger swagger = getResolvedSwagger(swaggerFile);
+		Swagger swagger = new SwaggerParser().read(swaggerFile.getAbsolutePath());
 
 		Map<String, JsonSchema> schemas = new SchemaExtractor().extractSchema(swagger);
 		int i = 1;
@@ -59,18 +58,19 @@ public class ParseSwaggerMain {
 		System.err.println(Json.pretty(schemas));
 	}
 
-	private Swagger getResolvedSwagger(File file) {
-		Swagger swagger = linkedSwaggers.get(file.getAbsolutePath());
-
-		if (swagger == null) {
-			swagger = new SwaggerParser().read(file.getAbsolutePath());
-			if (swagger == null) {
-				throw new IllegalArgumentException("File not found: " + file.getAbsolutePath());
-			}
-			SwaggerResolver resolver = new SwaggerResolver(swagger, null);
-			swagger = resolver.resolve();
-			linkedSwaggers.put(file.getAbsolutePath(), swagger);
-		}
-		return swagger;
-	}
+	// private Swagger getResolvedSwagger(File file) {
+	// Swagger swagger = linkedSwaggers.get(file.getAbsolutePath());
+	//
+	// if (swagger == null) {
+	// swagger = new SwaggerParser().read(file.getAbsolutePath());
+	// if (swagger == null) {
+	// throw new IllegalArgumentException("File not found: " +
+	// file.getAbsolutePath());
+	// }
+	// SwaggerResolver resolver = new SwaggerResolver(swagger, null);
+	// swagger = resolver.resolve();
+	// linkedSwaggers.put(file.getAbsolutePath(), swagger);
+	// }
+	// return swagger;
+	// }
 }
