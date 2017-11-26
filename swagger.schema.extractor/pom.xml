@@ -73,7 +73,7 @@
 									</fileset>
 								</apply>
 
-								<java classname="viigit.sagger.schema.extractor.ParseSwaggerMain">
+								<java classname="viigit.swagger.schema.extractor.ParseSwaggerMain">
 									<arg value="-h" />
 									<classpath>
 										<pathelement location="${project.build.directory}/classes" />
