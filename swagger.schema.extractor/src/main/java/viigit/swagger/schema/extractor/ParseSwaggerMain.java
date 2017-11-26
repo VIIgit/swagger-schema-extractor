@@ -6,7 +6,6 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Map;
 
 import io.swagger.models.Swagger;
@@ -17,8 +16,6 @@ import io.swagger.util.Json;
  * Hello world!
  */
 public class ParseSwaggerMain {
-
-	private Map<String, Swagger> linkedSwaggers = new HashMap<>();
 
 	public static void main(String[] args) throws URISyntaxException, IOException {
 
@@ -42,7 +39,6 @@ public class ParseSwaggerMain {
 		Swagger swagger = new SwaggerParser().read(swaggerFile.getAbsolutePath());
 
 		Map<String, JsonSchema> schemas = new SchemaExtractor().extractSchema(swagger);
-		int i = 1;
 		for (Map.Entry<String, JsonSchema> schemaEntry : schemas.entrySet()) {
 
 			Path path = Paths
